@@ -14,7 +14,8 @@ class LiveStreamingLinks(Screen):
 
 	skin = """
 	<screen position="c-300,c-210" size="600,420" title="">
-		<widget name="menu" position="10,10" size="e-20,e-70" scrollbarMode="showOnDemand" />
+		<widget name="menu" position="10,5" size="e-20,e-90" scrollbarMode="showOnDemand" />
+		<widget source="statusbar" render="Label" position="c-300,e-80" zPosition="10" size="e-10,40" halign="center" valign="center" font="Regular;22" transparent="1" shadowColor="black" shadowOffset="-1,-1" />
 		<ePixmap pixmap="skin_default/buttons/red.png" position="c-150,e-45" size="140,40" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/green.png" position="c-0,e-45" size="140,40" alphatest="on" />
 		<widget source="key_red" render="Label" position="c-150,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
@@ -35,6 +36,8 @@ class LiveStreamingLinks(Screen):
 			"red": self.keyCancel,
 		}, -2)
 
+		self["statusbar"] = StaticText(_("Select a bouquet to add a channel to"))
+
 		self.list= []
 		self["menu"] = MenuList(self.list)
 
@@ -45,12 +48,12 @@ class LiveStreamingLinks(Screen):
 		self["menu"].setList(self.list)
 
 	def createTopMenu(self):
-		self.setTitle(_("Stream URL add"))
+		self.setTitle(_("Add stream URL"))
 		self.initSelectionList()
 		self.list= []
 		tmpList = []
 		tmpList = self.readFile(self.DIR_ENIGMA2 + 'bouquets.tv')
-		if len(tmpList) > 0 and tmpList != '':
+		if tmpList != '':
 			for x in tmpList:
 				if 'FROM BOUQUET \"' in x:
 					tmp = x.split("\"")
@@ -64,7 +67,7 @@ class LiveStreamingLinks(Screen):
 			return
 		self.name = ''
 		self.url = ''
-		self.session.openWithCallback(self.nameCallback, VirtualKeyBoard, title = _("Enter Name"), text = '')
+		self.session.openWithCallback(self.nameCallback, VirtualKeyBoard, title = _("Enter name"), text = '')
 
 	def nameCallback(self, res):
 		if res:
@@ -77,9 +80,9 @@ class LiveStreamingLinks(Screen):
 			out = ''
 			tmpList = []
 			fileName = self.DIR_ENIGMA2 + self.list[self["menu"].getSelectedIndex()][1]
-			if fileName == '':
-				return
 			tmpList = self.readFile(fileName)
+			if tmpList == '':
+				return
 			for x in tmpList:
 				out += x
 			out += '#SERVICE 4097:0:0:0:0:0:0:0:0:0:%s:%s\r\n' % (quote(self.url), quote(self.name))
@@ -105,4 +108,4 @@ def main(session, **kwargs):
 	session.open(LiveStreamingLinks)
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name = _("Stream Url Add"), description = _("Add streaming urls to channellist"), where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main)]
+	return [PluginDescriptor(name = _("Add stream URL"), description = _("Add a streaming url to your channellist"), where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main)]
