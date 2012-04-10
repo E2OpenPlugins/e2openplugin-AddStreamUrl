@@ -50,7 +50,7 @@ class LiveStreamingLinks(Screen):
 		self.list= []
 		tmpList = []
 		tmpList = self.readFile(self.DIR_ENIGMA2 + 'bouquets.tv')
-		if len(tmpList) > 0:
+		if len(tmpList) > 0 and tmpList != '':
 			for x in tmpList:
 				if 'FROM BOUQUET \"' in x:
 					tmp = x.split("\"")
@@ -77,6 +77,8 @@ class LiveStreamingLinks(Screen):
 			out = ''
 			tmpList = []
 			fileName = self.DIR_ENIGMA2 + self.list[self["menu"].getSelectedIndex()][1]
+			if fileName == '':
+				return
 			tmpList = self.readFile(fileName)
 			for x in tmpList:
 				out += x
