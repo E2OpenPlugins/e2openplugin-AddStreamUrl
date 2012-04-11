@@ -9,6 +9,42 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from urllib import quote
 from enigma import eDVBDB
 
+class LiveStreamingLinksHeader(Screen):
+	skin = """
+	<screen position="c-150,c-100" size="300,200" title="">
+		<widget name="menu" position="10,10" size="e-20,e-10" scrollbarMode="showOnDemand" />
+	</screen>"""
+
+	def __init__(self, session):
+		self.skin = LiveStreamingLinksHeader.skin
+		Screen.__init__(self, session)
+		self["actions"] = ActionMap(["SetupActions"],
+		{
+			"ok": self.keyOk,
+			"cancel": self.keyCancel,
+		}, -2)
+
+		self.list= []
+		self.list.append('http://')
+		self.list.append('rtmp://')
+		self.list.append('rtsp://')
+		self.list.append('mms://')
+		self.list.append('m3u://')
+		self.list.append('pls://')
+		self.list.append('asx://')
+		self["menu"] = MenuList(self.list)
+
+		self.onLayoutFinish.append(self.layoutFinish)
+
+	def layoutFinish(self):
+		self.setTitle(_("Select URL type"))
+
+	def keyOk(self):
+		self.close(self.list[self["menu"].getSelectedIndex()])
+
+	def keyCancel(self):
+		self.close('cancel')
+
 class LiveStreamingLinks(Screen):
 	DIR_ENIGMA2 = '/etc/enigma2/'
 
@@ -72,7 +108,12 @@ class LiveStreamingLinks(Screen):
 	def nameCallback(self, res):
 		if res:
 			self.name = res
-			self.session.openWithCallback(self.urlCallback, VirtualKeyBoard, title = _("Enter URL"), text = '')
+			self.session.openWithCallback(self.urlTypeCallback, LiveStreamingLinksHeader)
+
+	def urlTypeCallback(self, res):
+		if res:
+			if res != 'cancel':
+				self.session.openWithCallback(self.urlCallback, VirtualKeyBoard, title = _("Enter URL"), text = res)
 
 	def urlCallback(self, res):
 		if res:
