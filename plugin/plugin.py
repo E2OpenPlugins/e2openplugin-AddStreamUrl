@@ -52,8 +52,8 @@ class LiveStreamingLinks(Screen):
 	<screen position="c-300,c-210" size="600,420" title="">
 		<widget name="menu" position="10,5" size="e-20,e-90" scrollbarMode="showOnDemand" />
 		<widget source="statusbar" render="Label" position="c-300,e-80" zPosition="10" size="e-10,40" halign="center" valign="center" font="Regular;22" transparent="1" shadowColor="black" shadowOffset="-1,-1" />
-		<ePixmap pixmap="buttons/red.png" position="c-150,e-45" size="140,40" alphatest="on" />
-		<ePixmap pixmap="buttons/green.png" position="c-0,e-45" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="c-150,e-45" size="140,40" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="c-0,e-45" size="140,40" alphatest="on" />
 		<widget source="key_red" render="Label" position="c-150,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
 		<widget source="key_green" render="Label" position="c-0,e-45" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
 	</screen>"""
