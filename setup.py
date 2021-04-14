@@ -7,4 +7,3 @@ setup(name='enigma2-plugin-extensions-addstreamurl',
 	packages=[pkg],
 	package_dir={pkg: 'plugin'}
 )
-
