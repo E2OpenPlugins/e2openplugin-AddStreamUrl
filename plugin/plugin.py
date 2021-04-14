@@ -9,6 +9,7 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from urllib import quote
 from enigma import eDVBDB
 
+
 class LiveStreamingLinksHeader(Screen):
 	skin = """
 	<screen position="c-150,c-100" size="300,200" title="">
@@ -44,6 +45,7 @@ class LiveStreamingLinksHeader(Screen):
 
 	def keyCancel(self):
 		self.close('cancel')
+
 
 class LiveStreamingLinks(Screen):
 	DIR_ENIGMA2 = '/etc/enigma2/'
@@ -97,7 +99,6 @@ class LiveStreamingLinks(Screen):
 						self.list.append((tmp[1].split('.')[1], tmp[1]))
 		self["menu"].setList(self.list)
 
-
 	def keyOk(self):
 		if len(self.list) == 0:
 			return
@@ -145,8 +146,10 @@ class LiveStreamingLinks(Screen):
 			return ''
 			pass
 
+
 def main(session, **kwargs):
 	session.open(LiveStreamingLinks)
+
 
 def Plugins(**kwargs):
 	return [PluginDescriptor(name=_("Add stream URL"), description=_("Add a streaming url to your channellist"), where=PluginDescriptor.WHERE_PLUGINMENU, fnc=main)]
