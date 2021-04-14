@@ -103,7 +103,7 @@ class LiveStreamingLinks(Screen):
 			return
 		self.name = ''
 		self.url = ''
-		self.session.openWithCallback(self.nameCallback, VirtualKeyBoard, title = _("Enter name"), text = '')
+		self.session.openWithCallback(self.nameCallback, VirtualKeyBoard, title=_("Enter name"), text='')
 
 	def nameCallback(self, res):
 		if res:
@@ -113,7 +113,7 @@ class LiveStreamingLinks(Screen):
 	def urlTypeCallback(self, res):
 		if res:
 			if res != 'cancel':
-				self.session.openWithCallback(self.urlCallback, VirtualKeyBoard, title = _("Enter URL"), text = res)
+				self.session.openWithCallback(self.urlCallback, VirtualKeyBoard, title=_("Enter URL"), text=res)
 
 	def urlCallback(self, res):
 		if res:
@@ -149,4 +149,4 @@ def main(session, **kwargs):
 	session.open(LiveStreamingLinks)
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name = _("Add stream URL"), description = _("Add a streaming url to your channellist"), where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main)]
+	return [PluginDescriptor(name=_("Add stream URL"), description=_("Add a streaming url to your channellist"), where=PluginDescriptor.WHERE_PLUGINMENU, fnc=main)]
