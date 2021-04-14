@@ -24,7 +24,7 @@ class LiveStreamingLinksHeader(Screen):
 			"cancel": self.keyCancel,
 		}, -2)
 
-		self.list= []
+		self.list = []
 		self.list.append('http://')
 		self.list.append('rtmp://')
 		self.list.append('rtsp://')
@@ -74,7 +74,7 @@ class LiveStreamingLinks(Screen):
 
 		self["statusbar"] = StaticText(_("Select a bouquet to add a channel to"))
 
-		self.list= []
+		self.list = []
 		self["menu"] = MenuList(self.list)
 
 		self.onLayoutFinish.append(self.createTopMenu)
@@ -86,7 +86,7 @@ class LiveStreamingLinks(Screen):
 	def createTopMenu(self):
 		self.setTitle(_("Add stream URL"))
 		self.initSelectionList()
-		self.list= []
+		self.list = []
 		tmpList = []
 		tmpList = self.readFile(self.DIR_ENIGMA2 + 'bouquets.tv')
 		if tmpList != '':
