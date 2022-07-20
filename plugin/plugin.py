@@ -6,7 +6,7 @@ from Components.Label import Label
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from urllib import quote
+from urllib.parse import quote
 from enigma import eDVBDB
 
 class LiveStreamingLinksHeader(Screen):
